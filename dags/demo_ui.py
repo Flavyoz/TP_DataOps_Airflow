@@ -9,15 +9,14 @@ from airflow.sdk import dag, task
     catchup=False,
     tags=["demo", "ui"],
 )
-
 def demo_ui():
     @task
     def extraire():
-        return 42 # cette valeur devient un XCom
-    
+        return 42  # cette valeur devient un XCom
+
     @task
     def transformer(valeur):
-        if valeur > 100: # échec volontaire
+        if valeur > 100:  # échec volontaire
             raise ValueError("Valeur trop grande")
         return valeur * 2
 
@@ -26,5 +25,6 @@ def demo_ui():
         print(f"Chargement de {valeur}")
 
     charger(transformer(extraire()))
-    
+
+
 demo_ui()
